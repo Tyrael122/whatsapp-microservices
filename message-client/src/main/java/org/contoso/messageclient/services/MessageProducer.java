@@ -21,7 +21,6 @@ public class MessageProducer {
     @Value("${instance.name}")
     private String instanceName;
 
-
     public void login(String userId) {
         System.out.println("User " + userId + " logged in");
 

@@ -3,6 +3,7 @@ package org.contoso.chatservice.controllers;
 import lombok.RequiredArgsConstructor;
 import org.contoso.chatservice.models.Chat;
 import org.contoso.chatservice.models.ChatUser;
+import org.contoso.chatservice.models.dtos.ChatRequest;
 import org.contoso.chatservice.services.ChatService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,13 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
-    public Chat createChat() {
-        return chatService.createChat();
+    public Chat createChat(@RequestBody ChatRequest chatRequest) {
+        return chatService.createChat(chatRequest);
+    }
+
+    @GetMapping()
+    public List<Chat> getChats() {
+        return chatService.getChats();
     }
 
     @PostMapping("/{chatId}/users")

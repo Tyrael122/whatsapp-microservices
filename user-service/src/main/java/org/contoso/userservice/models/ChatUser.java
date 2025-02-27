@@ -1,4 +1,4 @@
-package org.contoso.chatservice.models;
+package org.contoso.userservice.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,4 +15,6 @@ public class ChatUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    private String name;
 }

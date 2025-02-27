@@ -3,12 +3,11 @@ package org.contoso.chatservice.services;
 import lombok.RequiredArgsConstructor;
 import org.contoso.chatservice.models.Chat;
 import org.contoso.chatservice.models.ChatUser;
+import org.contoso.chatservice.models.dtos.ChatRequest;
 import org.contoso.chatservice.repositories.ChatRepository;
-import org.contoso.chatservice.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,10 +15,17 @@ import java.util.UUID;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final UserRepository userRepository;
 
-    public Chat createChat() {
+    public Chat createChat(ChatRequest chatRequest) {
         Chat chat = new Chat();
+        chat.setName(chatRequest.getName());
+
+        chatRequest.getUsers().forEach(user -> {
+            ChatUser chatUser = new ChatUser();
+            chatUser.setId(UUID.fromString(user));
+            chat.getUsers().add(chatUser);
+        });
+
         return chatRepository.save(chat);
     }
 
@@ -28,21 +34,13 @@ public class ChatService {
     }
 
     public Chat addUserToChat(UUID uuid, ChatUser user) {
-        ChatUser chatUser;
-
-        Optional<ChatUser> optional = userRepository.findById(user.getId());
-        if (optional.isEmpty()) {
-            chatUser = new ChatUser();
-
-            chatUser.setName(user.getName());
-            userRepository.save(chatUser);
-        } else {
-            chatUser = optional.get();
-        }
-
         Chat chat = chatRepository.findById(uuid).orElseThrow();
-        chat.getUsers().add(chatUser);
+        chat.getUsers().add(user);
 
         return chatRepository.save(chat);
+    }
+
+    public List<Chat> getChats() {
+        return chatRepository.findAll();
     }
 }

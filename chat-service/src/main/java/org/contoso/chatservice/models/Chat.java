@@ -3,6 +3,7 @@ package org.contoso.chatservice.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class Chat {
     private String name;
 
     @ManyToMany
-    private List<ChatUser> users;
+    private List<ChatUser> users = new ArrayList<>();
 
 //    @ElementCollection
 //    @CollectionTable(name = "chat_users", joinColumns = @JoinColumn(name = "chat_id"))
