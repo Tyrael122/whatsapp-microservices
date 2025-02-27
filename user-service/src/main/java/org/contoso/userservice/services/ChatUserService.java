@@ -15,6 +15,10 @@ public class ChatUserService {
     private final ChatUserRepository chatUserRepository;
 
     public ChatUser createUser(ChatUser user) {
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new IllegalArgumentException("Name is required");
+        }
+
         if (!getUserByUsername(user.getName()).isEmpty()) {
             throw new IllegalArgumentException("User already exists");
         }

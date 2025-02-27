@@ -2,11 +2,13 @@ package org.contoso.chatservice.services;
 
 import lombok.RequiredArgsConstructor;
 import org.contoso.chatservice.models.Chat;
+import org.contoso.chatservice.models.ChatUpdateRequest;
 import org.contoso.chatservice.models.ChatUser;
 import org.contoso.chatservice.models.dtos.ChatRequest;
 import org.contoso.chatservice.repositories.ChatRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +35,16 @@ public class ChatService {
         return chatRepository.findById(chatId).orElseThrow().getUsers();
     }
 
-    public Chat addUserToChat(UUID uuid, ChatUser user) {
-        Chat chat = chatRepository.findById(uuid).orElseThrow();
-        chat.getUsers().add(user);
+    public Chat updateChat(UUID chatId, ChatUpdateRequest user) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow();
+
+        chat.setUsers(new ArrayList<>());
+
+        user.getUsers().forEach(userId -> {
+            ChatUser chatUser = new ChatUser();
+            chatUser.setId(UUID.fromString(userId));
+            chat.getUsers().add(chatUser);
+        });
 
         return chatRepository.save(chat);
     }
