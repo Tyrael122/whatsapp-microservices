@@ -54,7 +54,7 @@ The system consists of multiple microservices:
 - **Load Testing:** Considered K6 but deemed complex due to dynamic queue creation in RabbitMQ.
 - **Cloud Deployment:** The next logical step for scalability.
 
-## Android App
+## [Android App](https://github.com/Tyrael122/whatsapp-microservices-app)
 The Android application has been fully developed and includes the following features:
 - **Simple Login Screen** (Username-based, automatic user creation if non-existent).
 - **Fetching Available Chats** via an API endpoint.
