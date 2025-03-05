@@ -54,11 +54,6 @@ The system consists of multiple microservices:
 - **Load Testing:** Considered K6 but deemed complex due to dynamic queue creation in RabbitMQ.
 - **Cloud Deployment:** The next logical step for scalability.
 
-## Next Steps
-- Record a video demonstrating message exchange and queue activity in RabbitMQ.
-- Publish the project on GitHub.
-- Post the video and insights on LinkedIn.
-
 ## Android App
 The Android application has been fully developed and includes the following features:
 - **Simple Login Screen** (Username-based, automatic user creation if non-existent).
